@@ -34,7 +34,6 @@ def biasCorr(OBSDIR,dreghist,dreg21,dbchist,dbc21,var,AVG_YRS,RUN_TYPE,OBS_RES,M
 	pad = (AVG_YRS-1)/2
 		
 	if RUN_TYPE.lower() == 'mon':
-#		prefix = 'regridded_' + str(RESOL) + 'deg'
 		dobs = os.path.join(OBSDIR,RUN_TYPE,var)
 		prefix = 'regridded_' 
 		print dhist
@@ -110,7 +109,6 @@ def spatDisagg(OBSDIR,var,RUN_TYPE,OBS_RES,dhistout,d21out,dhistbc,d21bc,MIN_LAT
 	if RUN_TYPE.lower() == 'mon':
 		fobs = getFilesNoPrefix(os.path.join(OBSDIR,RUN_TYPE,var),'aggr')
 		obsfname = fobs[0]
-#		prefix = 'BC_' + str(RESOL) + 'deg'
 		prefix = 'BC_' 
 		prefix2 = 'BCSD_'+ str(round(1./OBS_RES,3)) + 'deg'
 		fhist = getFilesPrefix(dhistbc,prefix)
@@ -130,16 +128,6 @@ def spatDisagg(OBSDIR,var,RUN_TYPE,OBS_RES,dhistout,d21out,dhistbc,d21bc,MIN_LAT
 			os.system(callstr)
 	
 	if RUN_TYPE.lower() == 'day':
-#		if os.path.isfile(var+'_'+str(round(1./OBS_RES,3))+'_aggobsclimo_'+str(REF_ST)+'-'+str(REF_END)+'.nc') and \
-#					os.path.isfile(var+'_'+str(round(1./OBS_RES,3))+'_obsclimo_'+str(REF_ST)+'-'+str(REF_END)+'.nc'):
-#			pass
-#		else:
-#			callstr = 'ncl \'var="'+var+'"\' \'dobs="'+dobs+ \
-#						'"\' ores='+str(OBS_RES)+' ref_st='+str(REF_ST)+' ref_end='+str(REF_END)+' daily_climo.ncl'
-#			p = subprocess.Popen(callstr,shell=True)
-#			p.wait()		
-		
-#		prefix = 'BC_' + str(RESOL) + 'deg_'
 		prefix = '' 
 		fhistall = getFilesPrefix(dhistbc,prefix)
 		f21all = getFilesPrefix(d21bc,prefix)
@@ -187,7 +175,6 @@ def constAnalog(OBSDIR,var,RUN_TYPE,OBS_RES,dhistout,d21out,dhistbc,d21bc,REF_ST
 	print 'Beginning spatial disaggregation with BCCA'
 	dobs = os.path.join(OBSDIR,RUN_TYPE,var)
 	prefix = 'BC_' 
-#	prefix = 'BC_' + str(RESOL) + 'deg_'
 	fhistall = getFilesPrefix(dhistbc,prefix)
 	f21all = getFilesPrefix(d21bc,prefix)
 	numf = len(fhistall) + len(f21all)
@@ -351,7 +338,6 @@ print 'Aggregating obs to native GCM grid'
 callstr = 'ncl \'dobs="'+os.path.join(OBSDIR,RUN_TYPE)+'"\' \'var="'+var+'"\' \'model="'+model+'"\' AggObs.ncl'
 p1 = subprocess.Popen(callstr,shell=True)
 p1.wait()
-# exec(callstr)
 
 
 # Bias correction
